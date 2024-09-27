@@ -9,10 +9,14 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 
 
 def connect():
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(ADDR)
-    return client
-
+    """Establishes a socket connection to the server."""
+    try:
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(ADDR)
+        return client
+    except Exception as e:
+        print(f"\033[1;31m[ERROR] Unable to connect to the server: {e}\033[0m")
+        sys.exit()
 
 def send(client, msg):
     message = msg.encode(FORMAT)
